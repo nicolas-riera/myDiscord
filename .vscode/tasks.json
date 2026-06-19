@@ -7,12 +7,14 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/server/main.c",
+                "${workspaceFolder}/server/src/mongoose/mongoose.c",
                 "-o",
-                "${workspaceFolder}/bin/${fileBasenameNoExtension}"
+                "${workspaceFolder}/bin/main",
+                "-lpthread"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -30,9 +32,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}/server/*.c",
+                "${workspaceFolder}/server/main.c",
+                "${workspaceFolder}/server/src/mongoose/mongoose.c",
                 "-o",
                 "${workspaceFolder}/bin/main.exe",
+                "-lws2_32"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
