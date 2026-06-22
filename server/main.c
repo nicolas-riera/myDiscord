@@ -34,13 +34,13 @@ static int callback_minimal(struct lws *wsi, enum lws_callback_reasons reason,
     switch (reason) {
         case LWS_CALLBACK_ESTABLISHED:
             printf("Established connection with client\n");
-#ifdef _WIN32
+        #ifdef _WIN32
             CreateThread(NULL, 0, ClientThread, pss, 0, NULL);
-#else
+        #else
             pthread_t thread_id;
             pthread_create(&thread_id, NULL, ClientThread, pss);
             pthread_detach(thread_id);
-#endif
+        #endif
             break;
 
         case LWS_CALLBACK_RECEIVE:
