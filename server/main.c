@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <libwebsockets.h>
 
 #ifdef _WIN32
@@ -17,12 +18,14 @@ struct per_session_data__minimal {
 DWORD WINAPI ClientThread(LPVOID lpParam) {
     struct per_session_data__minimal *pss = (struct per_session_data__minimal *)lpParam;
     printf("Started client Thread\n");
+    fflush(stdout);
     return 0;
 }
 #else
 void* ClientThread(void *vargp) {
     struct per_session_data__minimal *pss = (struct per_session_data__minimal *)vargp;
     printf("Started client Thread\n");
+    fflush(stdout);
     return NULL;
 }
 #endif
@@ -34,6 +37,7 @@ static int callback_minimal(struct lws *wsi, enum lws_callback_reasons reason,
     switch (reason) {
         case LWS_CALLBACK_ESTABLISHED:
             printf("Established connection with client\n");
+            fflush(stdout);
         #ifdef _WIN32
             CreateThread(NULL, 0, ClientThread, pss, 0, NULL);
         #else
@@ -44,7 +48,8 @@ static int callback_minimal(struct lws *wsi, enum lws_callback_reasons reason,
             break;
 
         case LWS_CALLBACK_RECEIVE:
-            printf("Data received: %s\n", (char *)in);
+            printf("Data received: %.*s\n", (int)len, (char *)in);
+            fflush(stdout);
             lws_callback_on_writable(wsi);
             break;
 
@@ -53,6 +58,7 @@ static int callback_minimal(struct lws *wsi, enum lws_callback_reasons reason,
 
         case LWS_CALLBACK_CLOSED:
             printf("Connection closed\n");
+            fflush(stdout);
             break;
 
         default:
@@ -91,6 +97,7 @@ int main(int argc, const char **argv) {
     }
 
     printf("myDiscord Server started on port 8080.\n");
+    fflush(stdout);
 
     while (n >= 0) {
         n = lws_service(context, 0);
