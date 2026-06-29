@@ -8,6 +8,7 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 "${workspaceFolder}/server/main.c",
+                "${workspaceFolder}/server/src/controller/*.c",
                 "-o",
                 "${workspaceFolder}/bin/main",
                 "-lpthread",
