@@ -2,6 +2,7 @@
 #define CLIENTTHREAD_H
 
 #include <stdio.h>
+#include "../model/DataBase.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -12,6 +13,7 @@
 
 struct per_session_data {
     int number;
+    PGconn* conn;
 };
 
 #ifdef _WIN32

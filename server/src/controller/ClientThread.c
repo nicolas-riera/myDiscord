@@ -3,6 +3,7 @@
 #ifdef _WIN32
 DWORD WINAPI ClientThread(LPVOID lpParam) {
     struct per_session_data *pss = (struct per_session_data *)lpParam;
+    pss->conn = db_connect();
     printf("Started client Thread\n");
     fflush(stdout);
     return 0;
@@ -10,6 +11,7 @@ DWORD WINAPI ClientThread(LPVOID lpParam) {
 #else
 void* ClientThread(void *vargp) {
     struct per_session_data *pss = (struct per_session_data *)vargp;
+    pss->conn = db_connect();
     printf("Started client Thread\n");
     fflush(stdout);
     return NULL;

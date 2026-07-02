@@ -9,10 +9,14 @@
                 "-g",
                 "${workspaceFolder}/server/main.c",
                 "${workspaceFolder}/server/src/controller/*.c",
+                "${workspaceFolder}/server/src/model/*.c",
                 "-o",
                 "${workspaceFolder}/bin/main",
                 "-lpthread",
-                "-lwebsockets"
+                "-lwebsockets",
+                "-I/usr/include/postgresql",
+                "-L/usr/lib",
+                "-lpq"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

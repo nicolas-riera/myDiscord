@@ -28,6 +28,9 @@ int lws_callback(struct lws *wsi, enum lws_callback_reasons reason,
 
         case LWS_CALLBACK_CLOSED:
             printf("Connection closed\n");
+            if (pss->conn != NULL) {
+                db_disconnect(pss->conn);
+            }   
             fflush(stdout);
             break;
 
